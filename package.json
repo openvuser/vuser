@@ -1,0 +1,14 @@
+{
+  "name": "vuser-protocol-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "browser-extension",
+    "blockchain/wallet-core",
+    "blockchain/node",
+    "integration/publisher-sdk"
+  ],
+  "scripts": {
+    "build": "echo 'Building all packages...'"
+  }
+}

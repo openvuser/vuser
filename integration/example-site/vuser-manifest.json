@@ -1,0 +1,51 @@
+{
+  "vuserManifestVersion": "1.0.0",
+  "publisherInfo": {
+    "name": "Example Travel Co.",
+    "url": "https://example-travel.com"
+  },
+  "actions": [
+    {
+      "name": "bookFlight",
+      "description": "Books a flight ticket from an origin to a destination.",
+      "type": "FORM_SUBMISSION",
+      "parameters": [
+        {
+          "name": "origin",
+          "description": "The 3-letter airport code for the origin.",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "destination",
+          "description": "The 3-letter airport code for the destination.",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "departureDate",
+          "description": "The date of departure (YYYY-MM-DD).",
+          "type": "date",
+          "required": true
+        }
+      ],
+      "interaction": {
+        "formSelector": "#flight-booking-form",
+        "fieldMappings": {
+          "origin": "#flight-origin-input",
+          "destination": "#flight-dest-input",
+          "departureDate": "#flight-date-picker"
+        },
+        "submitSelector": "#book-flight-btn"
+      }
+    },
+    {
+      "name": "acceptCookies",
+      "description": "Accepts the site's cookie policy.",
+      "type": "CLICK",
+      "interaction": {
+        "selector": "#cookie-accept-button"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "browser-extension",
+    "version": "1.0.0",
+    "description": "Vuser browser extension for Chrome and Firefox.",
+    "scripts": {
+      "build:chrome": "echo 'Building Chrome extension...'",
+      "build:firefox": "echo 'Building Firefox extension...'"
+    },
+    "dependencies": {
+      "ethers": "^6.0.0",
+      "react": "^18.0.0"
+    }
+  }

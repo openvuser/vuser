@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vuser Protocol Manifest",
+  "description": "Defines the permitted AI actions, parameters, and interaction models for a publisher's website.",
+  "type": "object",
+  "properties": {
+    "vuserManifestVersion": {
+      "description": "The version of the Vuser manifest specification this file adheres to.",
+      "type": "string",
+      "enum": ["1.0.0"]
+    },
+    "publisherInfo": {
+      "description": "Basic information about the publisher.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The legal name of the publisher."
+        },
+        "url": {
+          "type": "string",
+          "description": "The root domain this manifest applies to.",
+          "format": "uri"
+        }
+      },
+      "required": ["name", "url"]
+    },
+    "actions": {
+      "description": "An array of permitted actions the AI agent can perform.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/action"
+      }
+    }
+  },
+  "required": ["vuserManifestVersion", "publisherInfo", "actions"],
+  
+  "definitions": {
+    "action": {
+      "description": "A single, discrete, permitted action.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "A programmatic, unique name for the action (e.g., 'bookTicket', 'search').",
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_]+$"
+        },
+        "description": {
+          "description": "A human-readable description of what this action does.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of interaction this action primarily represents.",
+          "type": "string",
+          "enum": ["FORM_SUBMISSION", "CLICK", "TEXT_INPUT"]
+        },
+        "parameters": {
+          "description": "An array of data parameters this action accepts.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameter"
+          },
+          "default": []
+        },
+        "interaction": {
+          "description": "Defines the specific DOM selectors and events for this action.",
+          "$ref": "#/definitions/interaction"
+        }
+      },
+      "required": ["name", "description", "type", "interaction"]
+    },
+    
+    "parameter": {
+      "description": "Defines a single input parameter for an action.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The programmatic name of the parameter.",
+          "type": "string"
+        },
+        "description": {
+          "description": "A human-readable description.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The expected data type.",
+          "type": "string",
+          "enum": ["string", "number", "boolean", "date"]
+        },
+        "required": {
+          "description": "Whether this parameter is mandatory for the action.",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": ["name", "type"]
+    },
+    
+    "interaction": {
+      "description": "The mapping of action parameters to DOM elements. The required fields depend on the parent action's 'type'.",
+      "type": "object",
+      "properties": {
+        "formSelector": {
+          "description": "Required for 'FORM_SUBMISSION'. The CSS selector for the <form> element.",
+          "type": "string"
+        },
+        "fieldMappings": {
+          "description": "Required for 'FORM_SUBMISSION'. Maps parameter names to their input selectors.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "description": "A CSS selector for the input/select/textarea element."
+          }
+        },
+        "submitSelector": {
+          "description": "Optional for 'FORM_SUBMISSION'. Selector for the submit button. If absent, assumes a standard form.submit().",
+          "type": "string"
+        },
+        "selector": {
+          "description": "Required for 'CLICK' or 'TEXT_INPUT'. The CSS selector for the target element.",
+          "type": "string"
+        },
+        "parameterName": {
+          "description": "Required for 'TEXT_INPUT'. The name of the *single* parameter whose value will be entered.",
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": { "type": { "const": "FORM_SUBMISSION" } },
+          "required": ["formSelector", "fieldMappings"]
+        },
+        {
+          "properties": { "type": { "const": "CLICK" } },
+          "required": ["selector"]
+        },
+        {
+          "properties": { "type": { "const": "TEXT_INPUT" } },
+          "required": ["selector", "parameterName"]
+        }
+      ]
+    }
+  }
+}
