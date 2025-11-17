@@ -4,7 +4,7 @@ Here is the `blockchain.md` file,  to reflect the key features planned for perpe
 
 ### 📄 `blockchain.md`
 
-````md
+
 # Vuser Blockchain Layer
 
 ## 1. Overview
@@ -30,7 +30,7 @@ graph TD
     end
     
     subgraph Vuser-Node [Validator Node]
-        E[RPC API] --> F(Consensus: Proof-of-Participation);
+        E[RPC API] --> F[Consensus: Proof-of-Participation];
         F --> G[Transaction Pool];
         G --> H{Block Creation};
         H --> I[Blockchain State];
@@ -105,5 +105,4 @@ The block reward is dynamic, based on network activity, and is split among the m
 
 <!-- end list -->
 
-```
 ```

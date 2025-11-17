@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuser Chain Tokenomics Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #03030a;
+            --bg-secondary: #121225;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff9d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3ccc0;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px var(--accent-cyan);
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--bg-secondary);
+            border: 1px solid #ffffff1a;
+            border-radius: 15px;
+            box-shadow: 0 0 40px #000000a0;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            border-bottom: 1px solid #ffffff1a;
+            background: linear-gradient(145deg, #121225, #1a1a3a);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-group label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .control-group label span {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            float: right;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #00000040;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid #ffffff1a;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-cyan);
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid var(--bg-secondary);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        button {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid var(--accent-green);
+            background: transparent;
+            color: var(--accent-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--accent-green);
+        }
+
+        button.stop {
+            border-color: var(--accent-magenta);
+            color: var(--accent-magenta);
+        }
+
+        button.stop:hover {
+            background: var(--accent-magenta);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--accent-magenta);
+        }
+
+        .readouts {
+            background: #00000020;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #ffffff10;
+        }
+
+        .readout {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ffffff1a;
+        }
+        .readout:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .readout .label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .readout .value {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .status {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        .status-inflation { color: var(--accent-cyan); }
+        .status-deflation { color: var(--accent-magenta); }
+        .status-stable { color: var(--accent-green); }
+
+        .summary {
+            padding: 20px 30px;
+            background: #00000020;
+            border-top: 1px solid #ffffff1a;
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        .summary code {
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Vuser Chain Simulator</h1>
+            <h2>Tokenomics Modeler</h2>
+        </div>
+
+        <div class="content">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="wSlider">Mining Fees (W) per Block <span id="wValue">10.00</span></label>
+                    <input type="range" id="wSlider" min="0" max="40" step="0.5" value="10">
+                </div>
+
+                <div class="control-group">
+                    <label>Base Reward (Fixed)</label>
+                    <input type="text" value="9 Coins" disabled style="background:#00000020; border:1px solid #ffffff10; color:var(--text-primary); padding:10px; border-radius: 5px; font-family: 'Orbitron'; font-size: 1.1rem;">
+                </div>
+
+                <button id="runButton">▶ Run Simulation</button>
+            </div>
+            
+            <div class="readouts">
+                <div class="readout">
+                    <span class="label">Total Reward (9+W)</span>
+                    <span class="value" id="totalReward">19.00</span>
+                </div>
+                <div class="readout">
+                    <span class="label">Miner Share (1/3)</span>
+                    <span class="value" id="minerShare">6.33</span>
+                </div>
+                <div class="readout">
+                    <span class="label">Coalition Share (1/3)</span>
+                    <span class="value" id="coalitionShare">6.33</span>
+                </div>
+                <div class="readout">
+                    <span class="label">Coins Burnt (1/3)</span>
+                    <span class="value" id="burntAmount">6.33</span>
+                </div>
+                <div class="readout" style="border-top: 2px solid var(--accent-cyan); padding-top: 15px;">
+                    <span class="label">NET SUPPLY CHANGE</span>
+                    <span class="value" id="netChange">+2.67</span>
+                </div>
+                <div class="readout">
+                    <span class="label">Status (at W = 18)</span>
+                    <span class="value status status-inflation" id="statusText">Divergence</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <p>This simulation is based on the formula: <code>Net Change = 6 - (W / 3)</code></p>
+            <p>The chain is INFLATIONARY if <code>W < 18</code> and DEFLATIONARY if <code>W > 18</code>.</p>
+        </div>
+
+        <div class="summary" style="background: #00000040;">
+            <div class="readout">
+                <span class="label">Blocks Simulated</span>
+                <span class="value" id="blockCount">0</span>
+            </div>
+            <div class="readout">
+                <span class="label">Total Net Supply Change</span>
+                <span class="value" id="totalNetSupply">0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM Elements
+        const wSlider = document.getElementById('wSlider');
+        const wValue = document.getElementById('wValue');
+        
+        const totalRewardEl = document.getElementById('totalReward');
+        const minerShareEl = document.getElementById('minerShare');
+        const coalitionShareEl = document.getElementById('coalitionShare');
+        const burntAmountEl = document.getElementById('burntAmount');
+        const netChangeEl = document.getElementById('netChange');
+        const statusTextEl = document.getElementById('statusText');
+
+        const runButton = document.getElementById('runButton');
+        const blockCountEl = document.getElementById('blockCount');
+        const totalNetSupplyEl = document.getElementById('totalNetSupply');
+
+        // Simulation State
+        let isRunning = false;
+        let simulationInterval;
+        let blockCounter = 0;
+        let totalNetSupply = 0;
+        
+        // Per-block reward logic from user prompt
+        const BASE_REWARD = 9; // 9 new coins per block
+
+        /**
+         * Calculates and updates all displayed readouts based on slider values.
+         */
+        function updateReadouts() {
+            const W = parseFloat(wSlider.value);
+            wValue.textContent = W.toFixed(2);
+
+            // Per-block logic from user prompt
+            const totalReward = BASE_REWARD + W; // 9 + W
+            const share = totalReward / 3; // 1/3 to miner, 1/3 to coalition, 1/3 burnt
+            const burnt = share;
+            
+            // Net Change calculation
+            // New coins created = 9
+            // Coins destroyed = burnt = (9 + W) / 3
+            // NetChange = 9 - ((9 + W) / 3) = 9 - 3 - (W/3) = 6 - (W/3)
+            const netChange = BASE_REWARD - burnt; // Equivalent to 6 - (W/3)
+
+            // Update projection readouts
+            totalRewardEl.textContent = totalReward.toFixed(2);
+            minerShareEl.textContent = share.toFixed(2);
+            coalitionShareEl.textContent = share.toFixed(2);
+            burntAmountEl.textContent = burnt.toFixed(2);
+            netChangeEl.textContent = netChange.toFixed(2);
+            
+            // Update status
+            statusTextEl.classList.remove('status-inflation', 'status-deflation', 'status-stable');
+            if (netChange > 0) {
+                statusTextEl.textContent = 'Divergence';
+                statusTextEl.classList.add('status-inflation');
+            } else if (netChange < 0) {
+                statusTextEl.textContent = 'Collapse';
+                statusTextEl.classList.add('status-deflation');
+            } else {
+                statusTextEl.textContent = 'Stable';
+                statusTextEl.classList.add('status-stable');
+            }
+        }
+
+        /**
+         * Runs a single step of the simulation.
+         */
+        function stepSimulation() {
+            const W = parseFloat(wSlider.value);
+            const burnt = (BASE_REWARD + W) / 3;
+            const netChange = BASE_REWARD - burnt;
+
+            totalNetSupply += netChange;
+            blockCounter++;
+
+            // Update simulation readouts
+            blockCountEl.textContent = blockCounter;
+            totalNetSupplyEl.textContent = totalNetSupply.toFixed(2);
+        }
+
+        // Event Listeners
+        wSlider.addEventListener('input', updateReadouts);
+
+        runButton.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                runButton.textContent = '◼ Stop Simulation';
+                runButton.classList.add('stop');
+                wSlider.disabled = true; // Lock sliders during simulation
+                
+                // Reset counters
+                blockCounter = 0;
+                totalNetSupply = 0;
+                
+                simulationInterval = setInterval(() => {
+                    stepSimulation();
+                    updateReadouts(); // Update projections in real-time
+                }, 100); // Run simulation at 10 blocks/sec
+            } else {
+                runButton.textContent = '▶ Run Simulation';
+                runButton.classList.remove('stop');
+                wSlider.disabled = false;
+                clearInterval(simulationInterval);
+            }
+        });
+
+        // Initial call to set values on load
+        updateReadouts();
+    </script>
+</body>
+</html>
