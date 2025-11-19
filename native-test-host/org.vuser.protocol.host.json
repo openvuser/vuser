@@ -1,0 +1,9 @@
+{
+  "name": "org.vuser.protocol.host",
+  "description": "Vuser Protocol Native Host",
+  "path": "/Users/prabhatsingh/vuser/native-test-host/host.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://<EXTENSION_ID>/"
+  ]
+}

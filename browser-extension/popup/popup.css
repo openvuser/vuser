@@ -1,10 +1,62 @@
 body {
-  font-family: sans-serif;
-  font-size: 16px;
+  width: 300px;
   padding: 10px;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+#selectedText {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-height: 50px;
+  background-color: #f9f9f9;
+  font-size: 12px;
   margin-bottom: 10px;
+}
+
+#tabs-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab-item {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.tab-item:last-child {
+  border-bottom: none;
+}
+
+.tab-title {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-url {
+  font-size: 10px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.tab-status {
+  font-size: 10px;
+  color: #999;
 }
