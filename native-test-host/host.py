@@ -32,46 +32,59 @@ tabs_lock = threading.Lock()
 class TabRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/tabs':
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            
-            # Request tabs from Chrome
-            # We can't easily wait for the response here in a simple way without more complex sync,
-            # so for this MVP we will return the *last known* tabs or trigger a fetch and return what we have.
-            # Better approach: Trigger fetch, wait for update (with timeout), then return.
-            
-            request_id = str(time.time())
-            send_message({"action": "getTabs", "id": request_id})
-            
-            # Wait for response (simple polling for demo purposes)
-            # In a real app, use a Condition variable or Event.
-            # For now, we'll just sleep a bit or return the cached tabs if we maintain them.
-            # But we don't maintain them yet.
-            # Let's use a Condition.
-            
-            # Actually, since the host is single-process, we need to be careful.
-            # The main thread is reading stdin. The HTTP server is in a separate thread.
-            # We can use a shared dictionary to store pending requests.
-            
-            global pending_requests
-            event = threading.Event()
-            with tabs_lock:
-                pending_requests[request_id] = {'event': event, 'data': None}
-            
-            if event.wait(timeout=2.0):
-                with tabs_lock:
-                    data = pending_requests.pop(request_id, None)
-                    response_data = data['data'] if data else []
-            else:
-                response_data = {"error": "Timeout waiting for Chrome"}
-                with tabs_lock:
-                    pending_requests.pop(request_id, None)
-
-            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+            self.handle_request("getTabs", {})
         else:
             self.send_response(404)
             self.end_headers()
+
+    def do_POST(self):
+        if self.path == '/switch':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data)
+            self.handle_request("switchTab", data)
+        elif self.path == '/mcp':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data)
+            self.handle_request("callMcp", data)
+        elif self.path == '/create':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data)
+            self.handle_request("createTab", data)
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+    def handle_request(self, action, payload):
+        request_id = str(time.time())
+        message = {"action": action, "id": request_id}
+        message.update(payload)
+        
+        send_message(message)
+        
+        global pending_requests
+        event = threading.Event()
+        with tabs_lock:
+            pending_requests[request_id] = {'event': event, 'data': None}
+        
+        if event.wait(timeout=5.0): # Increased timeout for MCP calls
+            with tabs_lock:
+                data = pending_requests.pop(request_id, None)
+                response_data = data['data'] if data else {"error": "No data received"}
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+        else:
+            with tabs_lock:
+                pending_requests.pop(request_id, None)
+            self.send_response(504)
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "Timeout waiting for Chrome"}).encode('utf-8'))
+
 
 pending_requests = {}
 

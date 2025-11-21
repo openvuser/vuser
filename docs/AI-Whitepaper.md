@@ -48,6 +48,15 @@ This is the process that replaces "AI interpretation." The AIO does not *fill ou
 
 The AI is just the *orchestrator*. The publisher's manifest is the *actor*.
 
+### 2.4. The Browser Extension: The Physical Bridge
+The abstract orchestration described above is physically realized through the **Vuser Browser Extension**. This extension acts as the secure gateway between the local AI model and the web.
+
+*   **State Awareness:** The extension allows the AI to query the state of all open tabs, giving it "eyes" to see the user's current context.
+*   **Context Switching:** The AI can switch active tabs or open new ones to navigate the user to the correct service.
+*   **Secure Execution:** Instead of scraping the DOM, the extension uses a **Native Messaging Host** to inject calls directly to the publisher's `window.vuserMcp` object. This ensures that the AI interacts *only* through the approved API surface.
+
+For technical details on the integration, see [Browser Extension Integration](browser-extension-integration.md).
+
 ## 3. Stochastic Summary: The Intent-to-Function State Machine
 
 The Vuser AIO operates as a high-speed probabilistic router. Its job is to calculate the highest probability match between a user's intent and a set of available functions.

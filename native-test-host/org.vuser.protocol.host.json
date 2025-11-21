@@ -4,6 +4,6 @@
   "path": "/Users/prabhatsingh/vuser/native-test-host/host.py",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://<EXTENSION_ID>/"
+    "chrome-extension://aciiecfefgpdkjhgnmeniadmjdmejcfo/"
   ]
 }
