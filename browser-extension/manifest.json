@@ -8,6 +8,20 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
+  "action": {
+    "default_popup": "test.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "test.html",
+        "test.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "permissions": [
     "tabs",
     "nativeMessaging",
@@ -22,8 +36,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ]
 }

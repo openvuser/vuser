@@ -8,6 +8,9 @@ import socketserver
 import time
 import os
 
+# Debug log – indicates the host process has started
+sys.stderr.write('HOST STARTED\n')
+
 # Native Messaging Protocol
 def get_message():
     raw_length = sys.stdin.buffer.read(4)
@@ -89,9 +92,18 @@ class TabRequestHandler(http.server.SimpleHTTPRequestHandler):
 pending_requests = {}
 
 def start_server():
-    PORT = 8080
-    with socketserver.TCPServer(("", PORT), TabRequestHandler) as httpd:
-        httpd.serve_forever()
+    # Use port 0 to let the OS pick an available port, avoiding conflicts.
+    try:
+        with socketserver.TCPServer(("", 0), TabRequestHandler) as httpd:
+            # Store the chosen port for debugging (optional)
+            chosen_port = httpd.server_address[1]
+            sys.stderr.write(f"HTTP server listening on port {chosen_port}\n")
+            httpd.serve_forever()
+    except OSError as e:
+        # If binding fails, log and continue – the host can still handle native messages.
+        sys.stderr.write(f"HTTP server error (ignored): {e}\n")
+        # Do not re-raise; the host will keep running for native messaging.
+
 
 # Start HTTP server in a separate thread
 server_thread = threading.Thread(target=start_server, daemon=True)
@@ -101,6 +113,16 @@ server_thread.start()
 while True:
     try:
         msg = get_message()
+    # -------------------------------------------------------------------
+    # New ping handling – respond immediately to simple ping requests
+    # -------------------------------------------------------------------
+        if isinstance(msg, dict) and msg.get('cmd') == 'ping':
+            # Send a simple reply back to the extension
+            send_message({"reply": "pong"})
+            continue  # Skip further processing for this ping message
+    # -------------------------------------------------------------------
+    # Existing handling of messages that contain tab information
+    # -------------------------------------------------------------------
         # Handle messages from Chrome
         # We expect responses to our "getTabs" requests
         if 'id' in msg and 'tabs' in msg:
