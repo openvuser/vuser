@@ -13,16 +13,39 @@ document.getElementById('ping').onclick = () => {
   );
 };
 
-document.getElementById('listTabs').onclick = () => {
-  chrome.tabs.query({}, (tabs) => {
-    const info = tabs.map(t => ({
-      id: t.id,
-      title: t.title,
-      url: t.url,
-      status: t.status,
-      active: t.active,
-      windowId: t.windowId
+document.getElementById('listTabs').onclick = async () => {
+  chrome.tabs.query({}, async (tabs) => {
+    const tabsWithMcp = await Promise.all(tabs.map(async (t) => {
+      let mcpEnabled = false;
+      
+      // Only check for MCP on http/https URLs
+      if (t.url && (t.url.startsWith('http://') || t.url.startsWith('https://'))) {
+        try {
+          const results = await chrome.scripting.executeScript({
+            target: { tabId: t.id },
+            world: 'MAIN',
+            func: () => {
+              return !!(window.vuserMcp || window.mcp);
+            }
+          });
+          mcpEnabled = results && results[0] && results[0].result;
+        } catch (e) {
+          // Tab might not be injectable (extension pages, chrome://, etc.)
+          mcpEnabled = false;
+        }
+      }
+      
+      return {
+        id: t.id,
+        title: t.title,
+        url: t.url,
+        status: t.status,
+        active: t.active,
+        windowId: t.windowId,
+        mcpEnabled: mcpEnabled
+      };
     }));
-    tabsOut.textContent = JSON.stringify(info, null, 2);
+    
+    tabsOut.textContent = JSON.stringify(tabsWithMcp, null, 2);
   });
 };
