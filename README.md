@@ -175,6 +175,10 @@ This project has three apps; Browser Platform, Blockchain & Integration SDK.
 
 6. Learn More
 
+[Value Proposition](/docs/value.md): Understand the value for AI Agents, Publishers, and Users.
+
+[Integration Guide](/docs/Integration.md): Guide for Agent Developers and Web Publishers to integrate with Vuser.
+
 [Blockchain Layer Whitepaper:](/docs/Blockchain-Whitepaper.md)  A deep dive into the PoP consensus and tokenomic model.
 
 [AI Orchestrator Whitepaper](/docs/AI-Whitepaper.md): A detailed explanation of the AIO and Functional Delegation.
