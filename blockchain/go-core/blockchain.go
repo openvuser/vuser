@@ -32,6 +32,14 @@ func IsBlockValid(newBlock, oldBlock Block) bool {
 		return false
 	}
 
+	// Verify sidechain headers
+	for _, header := range newBlock.SidechainHeaders {
+		if !VerifySidechainHeader(&header) {
+			fmt.Println("Invalid sidechain header")
+			return false
+		}
+	}
+
 	return true
 }
 
@@ -43,6 +51,10 @@ func GetBalance(address string) *big.Int {
 		for _, tx := range block.Transactions {
 			if tx.Sender == address {
 				balance.Sub(balance, tx.Amount)
+				// Deduct fee if not sponsored
+				if !tx.IsSponsored && tx.Fee != nil {
+					balance.Sub(balance, tx.Fee)
+				}
 			}
 			if tx.Recipient == address {
 				balance.Add(balance, tx.Amount)

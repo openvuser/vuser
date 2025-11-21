@@ -8,11 +8,11 @@ import (
 
 func TestBlockValidation(t *testing.T) {
 	tx := NewTransaction("Sender", "Recipient", big.NewInt(10), 0, "Test Data")
-	genesisBlock := Block{0, time.Now().String(), []*Transaction{tx}, "", "", ""}
+	genesisBlock := Block{0, time.Now().String(), []*Transaction{tx}, "", "", "", nil}
 	genesisBlock.Hash = CalculateHash(genesisBlock)
 
 	newTx := NewTransaction("Sender", "Recipient", big.NewInt(10), 1, "Test Data")
-	newBlock := GenerateBlock(genesisBlock, []*Transaction{newTx}, "Validator1")
+	newBlock := GenerateBlock(genesisBlock, []*Transaction{newTx}, "Validator1", nil)
 
 	if !IsBlockValid(newBlock, genesisBlock) {
 		t.Errorf("Block should be valid")
@@ -30,12 +30,12 @@ func TestBlockValidation(t *testing.T) {
 func TestBlockchain(t *testing.T) {
 	Blockchain = []Block{}
 	tx := NewTransaction("Sender", "Recipient", big.NewInt(10), 0, "Genesis Block")
-	genesisBlock := Block{0, time.Now().String(), []*Transaction{tx}, "", "", ""}
+	genesisBlock := Block{0, time.Now().String(), []*Transaction{tx}, "", "", "", nil}
 	genesisBlock.Hash = CalculateHash(genesisBlock)
 	Blockchain = append(Blockchain, genesisBlock)
 
 	newTx := NewTransaction("Sender", "Recipient", big.NewInt(10), 1, "Block 1")
-	newBlock := GenerateBlock(Blockchain[len(Blockchain)-1], []*Transaction{newTx}, "Validator1")
+	newBlock := GenerateBlock(Blockchain[len(Blockchain)-1], []*Transaction{newTx}, "Validator1", nil)
 	AddBlock(newBlock)
 
 	if len(Blockchain) != 2 {
