@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-In the Vuser coalition, our frontend protocol empowers virtual user actions—authorized by websites and executed seamlessly by AI agents—bridging AI and blockchain paradigms to foster decentralized, user-centric web experiences. A key component of this ecosystem is the blockchain layer, which handles permissions, value exchanges, and messaging. However, our current Proof of Participation (PoP) consensus mechanism faces a liveness vulnerability: if the selected miner (chosen from the last 100 transaction addresses) goes offline and fails to propose the next block, it could disrupt chain progression, impacting AI agent operations.
+In the Vuser coalition, our frontend(browser-use API) protocol empowers virtual user actions—authorized by websites and executed seamlessly by AI agents—bridging AI and blockchain paradigms to foster decentralized, user-centric web experiences. A key component of this ecosystem is the blockchain layer, which handles permissions, value exchanges, and messaging. However, our current Proof of Participation (PoP) consensus mechanism faces a liveness vulnerability: if the selected miner (chosen from the last 100 transaction addresses) goes offline and fails to propose the next block, it could disrupt chain progression, impacting AI agent operations.
 
 This proposal introduces a **Pre-Submission Pool Mechanism** to mitigate this flaw. By requiring the last 100 addresses to submit proposed blocks in advance, we ensure redundancy and continuity, drawing from established blockchain designs like Proposer-Builder Separation (PBS). This enhancement maintains decentralization, preserves unit veto capabilities, and aligns with Vuser's ethos of robust AI-blockchain integration, allowing virtual actions (e.g., site interactions or token transfers) to proceed without interruption.
 
@@ -18,7 +18,7 @@ Under the existing PoP model:
 - Each address holds a unit veto to reject invalid proposals, promoting collective security.
 - If the selected miner is offline or unresponsive, block production stalls, potentially halting the chain. This could cascade into delays for AI agents executing permitted virtual user actions, such as querying site manifests or processing payments.
 
-This liveness issue undermines the reliability of Vuser's frontend protocol, where AI agents rely on timely blockchain confirmations for seamless operations.
+This liveness issue undermines the reliability of Vuser's frontend(browser-use API) protocol, where AI agents rely on timely blockchain confirmations for seamless operations.
 
 ## Proposed Solution: Pre-Submission Pool Mechanism
 
@@ -67,7 +67,7 @@ To address this, we propose that all 100 addresses in the selection pool submit 
 - **Q2 2026**: Mainnet rollout, post-audit.
 
 ## Conclusion
-This Pre-Submission Pool Mechanism fortifies Vuser's PoP consensus, ensuring the blockchain layer reliably supports our frontend protocol's virtual user actions. By preemptively addressing liveness flaws, we reinforce the coalition's mission to interconnect AI and blockchain for a more empowered web. Feedback from coalition members is encouraged to iterate on this proposal.
+This Pre-Submission Pool Mechanism fortifies Vuser's PoP consensus, ensuring the blockchain layer reliably supports our frontend(browser-use API) protocol's virtual user actions. By preemptively addressing liveness flaws, we reinforce the coalition's mission to interconnect AI and blockchain for a more empowered web. Feedback from coalition members is encouraged to iterate on this proposal.
 
 
 -----

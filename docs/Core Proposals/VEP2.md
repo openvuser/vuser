@@ -9,13 +9,13 @@
 
 ## Abstract
 
-VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
+VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend(browser-use API) protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
 
 This VEP proposes the introduction of Vuser Open Coin (VOC), a utility token for the VUSER protocol. VOC enables efficient value exchanges, with a key feature being treasury-managed approvals for subsidized transactions. This mechanism allows the treasury (genesis) wallet to approve transacting wallets for funded operations, verifiable by miners, while defaulting to user-funded transactions for non-approved cases. Integration with the Model Context Protocol (MCP) ensures AI agents can execute actions economically, boosting coalition adoption.
 
 ## Motivation
 
-VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
+VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend(browser-use API) protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
 
 The VUSER protocol requires a native token to handle permissions, payments, and incentives in a decentralized manner. Current value-exchange contracts (per DevPlan Phase 0) lack a standardized currency and subsidy mechanism, hindering early adoption by users and publishers. VOC addresses this by:
 
@@ -142,7 +142,7 @@ contract VuserOpenCoin is ERC20, IVuserApprovalRegistry {
   4. Log on-chain for immutability.
 
 ## Rationale
-VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
+VUSER is a coalition uniting publishers, users, and AI agents in a decentralized ecosystem. VUSER is a frontend(browser-use API) protocol for virtual user actions, where these actions are permitted by the website and performed by an AI agent for a user. It connects various paradigms together, mostly AI & blockchain.
 
 This design balances subsidies for growth with user autonomy, using revocable approvals to mitigate risks. Miner enforcement decentralizes checks, aligning with VUSER's blockchain paradigm. Tokenomics incentivize coalition participation, connecting AI actions to economic value.
 
