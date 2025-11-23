@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
@@ -21,10 +22,14 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-primary: #03030a;
@@ -57,7 +62,10 @@
             font-size: 18px;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -143,7 +151,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -155,8 +163,13 @@
         }
 
         @keyframes grid-move {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
         }
 
         .hero-content {
@@ -169,20 +182,27 @@
             width: 250px;
             height: auto;
             margin-bottom: 30px;
-            filter: drop-shadow(0 0 30px rgba(0,255,255,0.3));
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.3));
             animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         .hero-title {
             font-size: 4rem;
             line-height: 1.1;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(0,255,255,0.5);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
         .hero-subtitle {
@@ -235,7 +255,7 @@
             width: 100%;
             max-width: 400px;
             border-radius: 20px;
-            box-shadow: -20px 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,0,255,0.2);
+            box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 0, 255, 0.2);
             border: 1px solid #ffffff10;
         }
 
@@ -294,7 +314,8 @@
             white-space: nowrap;
         }
 
-        th, td {
+        th,
+        td {
             padding: 20px;
             text-align: left;
             border-bottom: 1px solid #ffffff10;
@@ -309,9 +330,9 @@
         }
 
         td {
-             white-space: normal;
-             color: var(--text-secondary);
-             vertical-align: top;
+            white-space: normal;
+            color: var(--text-secondary);
+            vertical-align: top;
         }
 
         tr:hover td {
@@ -391,7 +412,7 @@
             .nav-links {
                 display: none;
             }
-            
+
             .hero-title {
                 font-size: 2.5rem;
             }
@@ -406,6 +427,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar">
@@ -445,13 +467,16 @@
                     <span>Opera</span>
                 </div>
             </div>
-            
+
             <img src="banner.jpg" alt="VUSER Logo" class="hero-logo">
             <h1 class="hero-title">Coalition of AI & The People</h1>
-            <p class="hero-subtitle">Open source  frontend protocol for virtual user action, connecting paradigms for a better tomorrow.</p>
+            <p class="hero-subtitle">Open source frontend protocol for virtual user action, connecting paradigms for a
+                better tomorrow.</p>
             <a href="#about" class="btn">Explore Protocol</a>
-            <a href="https://github.com/openvuser/vuser/blob/main/docs/AI-Whitepaper.md" class="btn"><i class="fa-regular fa-file-pdf"></i> AI Platform Whitepaper</a>
-            <a href="https://github.com/openvuser/vuser/blob/main/docs/Blockchain-Whitepaper.md" class="btn"> <i class="fa-regular fa-file-pdf"></i> Blockchain Whitepaper</a>
+            <a href="https://github.com/openvuser/vuser/blob/main/docs/AI-Whitepaper.md" class="btn"><i
+                    class="fa-regular fa-file-pdf"></i> AI Platform Whitepaper</a>
+            <a href="https://github.com/openvuser/vuser/blob/main/docs/Blockchain-Whitepaper.md" class="btn"> <i
+                    class="fa-regular fa-file-pdf"></i> Blockchain Whitepaper</a>
         </div>
     </section>
 
@@ -460,11 +485,18 @@
             <div class="about-grid">
                 <div class="about-text">
                     <h2>Redefining Interaction</h2>
-                    <p><span class="highlight">VUSER</span> is a coalition of publishers, users, and AI working toward a streamlined future. It acts as a frontend protocol permitting AI agents to perform virtual actions on behalf of users.</p>
-                    <p>By bridging the gap between standard web paradigms, AI, and blockchain technology, VUSER allows for secure, autonomous interaction with the digital world.</p>
-                    
-                    <h3 style="margin-top: 40px; color: var(--accent-cyan); font-family: 'Orbitron', sans-serif;">The Technology Stack</h3>
-                    <p>At its core, a <strong>Browser MCP (Model Context Protocol)</strong> manages open tab states, content structure, and available tools. This allows AI to rapidly call specific site tools for reliable operation, while blockchain layers handle value exchanges—be it money, permissions, or secure messaging.</p>
+                    <p><span class="highlight">VUSER</span> is a coalition of publishers, users, and AI working toward a
+                        streamlined future. It acts as a frontend protocol permitting AI agents to perform virtual
+                        actions on behalf of users.</p>
+                    <p>By bridging the gap between standard web paradigms, AI, and blockchain technology, VUSER allows
+                        for secure, autonomous interaction with the digital world.</p>
+
+                    <h3 style="margin-top: 40px; color: var(--accent-cyan); font-family: 'Orbitron', sans-serif;">The
+                        Technology Stack</h3>
+                    <p>At its core, a <strong>Browser MCP (Model Context Protocol)</strong> manages open tab states,
+                        content structure, and available tools. This allows AI to rapidly call specific site tools for
+                        reliable operation, while blockchain layers handle value exchanges—be it money, permissions, or
+                        secure messaging.</p>
                 </div>
                 <div class="about-image">
                     <img src="logo.jpg" alt="V Network Node" class="tech-logo">
@@ -479,15 +511,21 @@
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <h3>For Publishers</h3>
-                    <p>Increase service consumption through authorized AI usage. While real users focus on priority activities, their virtual counterparts can engage with other necessary services, ensuring consistent platform utilization that might otherwise be neglected.</p>
+                    <p>Increase service consumption through authorized AI usage. While real users focus on priority
+                        activities, their virtual counterparts can engage with other necessary services, ensuring
+                        consistent platform utilization that might otherwise be neglected.</p>
                 </div>
                 <div class="benefit-card">
                     <h3>For Users</h3>
-                    <p>Regain your time. Routine tasks like buying groceries, booking tickets, or hailing rides shouldn't be a burden. VUSER allows your personal AI agent to handle unavoidable daily digital chores based on your established preferences.</p>
+                    <p>Regain your time. Routine tasks like buying groceries, booking tickets, or hailing rides
+                        shouldn't be a burden. VUSER allows your personal AI agent to handle unavoidable daily digital
+                        chores based on your established preferences.</p>
                 </div>
                 <div class="benefit-card">
                     <h3>For AI Companies</h3>
-                    <p>Build robust products without relying on fragile hacks or compromising user security. VUSER provides a standardized protocol for interacting with third-party sites legitimately and securely.</p>
+                    <p>Build robust products without relying on fragile hacks or compromising user security. VUSER
+                        provides a standardized protocol for interacting with third-party sites legitimately and
+                        securely.</p>
                 </div>
             </div>
         </div>
@@ -496,10 +534,12 @@
     <section id="privacy">
         <div class="container">
             <h2>Privacy & Security Paradigm</h2>
-            <p>Integrating AI agents with blockchain streamlines convenience but introduces new vectors for data handling and potential vulnerabilities. VUSER is designed with these challenges at the forefront.</p>
+            <p>Integrating AI agents with blockchain streamlines convenience but introduces new vectors for data
+                handling and potential vulnerabilities. VUSER is designed with these challenges at the forefront.</p>
 
             <div class="privacy-warning">
-                 <strong>Transparency Note:</strong> While standard risks include hypothetical reduced ad revenue from non-human eyes, the primary focus must be on data sovereignty in an automated world.
+                <strong>Transparency Note:</strong> While standard risks include hypothetical reduced ad revenue from
+                non-human eyes, the primary focus must be on data sovereignty in an automated world.
             </div>
 
             <div class="table-container">
@@ -514,40 +554,51 @@
                     <tbody>
                         <tr>
                             <td style="color: var(--accent-cyan); font-weight: 600;">Data Processing</td>
-                            <td>AI agents collect vast amounts of preference and transaction data. Centralized processing models create risks of unauthorized access.</td>
-                            <td>Exposure of sensitive information (payment details, location data from service calls).</td>
+                            <td>AI agents collect vast amounts of preference and transaction data. Centralized
+                                processing models create risks of unauthorized access.</td>
+                            <td>Exposure of sensitive information (payment details, location data from service calls).
+                            </td>
                         </tr>
                         <tr>
                             <td style="color: var(--accent-cyan); font-weight: 600;">Black Box Problem</td>
-                            <td>Opaque decision-making in AI agents, especially when integrated with blockchain for value exchanges.</td>
-                            <td>Erosion of trust if users cannot verify if their patterns are being analyzed without explicit consent.</td>
+                            <td>Opaque decision-making in AI agents, especially when integrated with blockchain for
+                                value exchanges.</td>
+                            <td>Erosion of trust if users cannot verify if their patterns are being analyzed without
+                                explicit consent.</td>
                         </tr>
                         <tr>
                             <td style="color: var(--accent-cyan); font-weight: 600;">Security Vulnerabilities</td>
-                            <td>Susceptibility to prompt injection or data poisoning. Blockchain immutability could make leaked data permanently accessible.</td>
-                            <td>Risk of scams or breaches revealing virtual user activities, contradicting secure integration goals.</td>
+                            <td>Susceptibility to prompt injection or data poisoning. Blockchain immutability could make
+                                leaked data permanently accessible.</td>
+                            <td>Risk of scams or breaches revealing virtual user activities, contradicting secure
+                                integration goals.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <h3 style="color: var(--accent-green); font-family: 'Orbitron', sans-serif; margin-top: 50px;">Active Mitigations</h3>
+            <h3 style="color: var(--accent-green); font-family: 'Orbitron', sans-serif; margin-top: 50px;">Active
+                Mitigations</h3>
             <ul class="mitigation-list">
                 <li>
                     <strong>Robust Safeguards & Zero-Knowledge Proofs</strong>
-                    Strict consent mechanisms for data collection, ensuring actions are revocable. Utilizing ZK-proofs on blockchain to verify exchanges without revealing raw data details.
+                    Strict consent mechanisms for data collection, ensuring actions are revocable. Utilizing ZK-proofs
+                    on blockchain to verify exchanges without revealing raw data details.
                 </li>
                 <li>
                     <strong>Decentralized AI Models</strong>
-                    Shifting toward open-weight, on-chain verified AI to enhance transparency and reduce "black box" risks, aligning with established blockchain paradigms.
+                    Shifting toward open-weight, on-chain verified AI to enhance transparency and reduce "black box"
+                    risks, aligning with established blockchain paradigms.
                 </li>
                 <li>
                     <strong>Local Processing First</strong>
-                    For browser-based actions via MCP, we prioritize local AI agents to keep sensitive data on-device, minimizing cloud dependencies.
+                    For browser-based actions via MCP, we prioritize local AI agents to keep sensitive data on-device,
+                    minimizing cloud dependencies.
                 </li>
                 <li>
                     <strong>Continuous Auditing</strong>
-                    Regular security audits of smart contracts and AI logic to prevent injections, alongside strict adherence to global regulations like GDPR.
+                    Regular security audits of smart contracts and AI logic to prevent injections, alongside strict
+                    adherence to global regulations like GDPR.
                 </li>
             </ul>
         </div>
@@ -567,4 +618,5 @@
     </footer>
 
 </body>
+
 </html>

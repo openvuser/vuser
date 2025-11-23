@@ -1,4 +1,5 @@
-Vuser Protocol
+![Vuser Imapct on AI Agents](docs/images/comparison.png)
+# Vuser Protocol
 
 1. Why Vuser? The "Time-Scarcity Deficit"
 
