@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Vuser AI Blockchain Open Platform",
   "version": "1.0",
-  "description": "Vuser is open source browser extension for all AI and agents to work seamlessly and securely with vuser blockchain based security and encryption.",
+  "description": "Open source browser extension for AI and agents to work seamlessly with vuser blockchain security and encryption.",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
